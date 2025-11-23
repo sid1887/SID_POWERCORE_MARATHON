@@ -1,0 +1,79 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1110-g18392a46)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "D:\verilog\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\verilog\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\verilog\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\verilog\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\verilog\iverilog\lib\ivl\va_math.vpi";
+S_0000020f0e10e030 .scope module, "tb_peres_gate" "tb_peres_gate" 2 3;
+ .timescale -9 -12;
+v0000020f0e193ad0_0 .var "a", 0 0;
+v0000020f0e193b70_0 .var "b", 0 0;
+v0000020f0e1e0b30_0 .var "c", 0 0;
+v0000020f0e1e1350_0 .net "p", 0 0, L_0000020f0e1633d0;  1 drivers
+v0000020f0e1e1030_0 .net "q", 0 0, L_0000020f0e163600;  1 drivers
+v0000020f0e1e0c70_0 .net "r", 0 0, L_0000020f0e163a40;  1 drivers
+S_0000020f0e10e1c0 .scope begin, "$ivl_for_loop0" "$ivl_for_loop0" 2 11, 2 11 0, S_0000020f0e10e030;
+ .timescale -9 -12;
+v0000020f0e10a420_0 .var/i "i", 31 0;
+S_0000020f0e10e350 .scope module, "uut" "peres_gate" 2 7, 3 1 0, S_0000020f0e10e030;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /INPUT 1 "b";
+    .port_info 2 /INPUT 1 "c";
+    .port_info 3 /OUTPUT 1 "p";
+    .port_info 4 /OUTPUT 1 "q";
+    .port_info 5 /OUTPUT 1 "r";
+L_0000020f0e1633d0 .functor BUFZ 1, v0000020f0e193ad0_0, C4<0>, C4<0>, C4<0>;
+L_0000020f0e163600 .functor XOR 1, v0000020f0e193ad0_0, v0000020f0e193b70_0, C4<0>, C4<0>;
+L_0000020f0e163840 .functor AND 1, v0000020f0e193ad0_0, v0000020f0e193b70_0, C4<1>, C4<1>;
+L_0000020f0e163a40 .functor XOR 1, L_0000020f0e163840, v0000020f0e1e0b30_0, C4<0>, C4<0>;
+v0000020f0e163330_0 .net *"_ivl_4", 0 0, L_0000020f0e163840;  1 drivers
+v0000020f0e193710_0 .net "a", 0 0, v0000020f0e193ad0_0;  1 drivers
+v0000020f0e1937b0_0 .net "b", 0 0, v0000020f0e193b70_0;  1 drivers
+v0000020f0e193850_0 .net "c", 0 0, v0000020f0e1e0b30_0;  1 drivers
+v0000020f0e1938f0_0 .net "p", 0 0, L_0000020f0e1633d0;  alias, 1 drivers
+v0000020f0e193990_0 .net "q", 0 0, L_0000020f0e163600;  alias, 1 drivers
+v0000020f0e193a30_0 .net "r", 0 0, L_0000020f0e163a40;  alias, 1 drivers
+    .scope S_0000020f0e10e030;
+T_0 ;
+    %vpi_call 2 10 "$display", "a b c | p q r" {0 0 0};
+    %fork t_1, S_0000020f0e10e1c0;
+    %jmp t_0;
+    .scope S_0000020f0e10e1c0;
+t_1 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0000020f0e10a420_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v0000020f0e10a420_0;
+    %cmpi/s 8, 0, 32;
+    %flag_or 5, 4;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v0000020f0e10a420_0;
+    %pad/s 3;
+    %split/vec4 1;
+    %store/vec4 v0000020f0e1e0b30_0, 0, 1;
+    %split/vec4 1;
+    %store/vec4 v0000020f0e193b70_0, 0, 1;
+    %store/vec4 v0000020f0e193ad0_0, 0, 1;
+    %delay 5000, 0;
+    %vpi_call 2 15 "$display", "%b, %b, %b,   %b, %b, %b", v0000020f0e193ad0_0, v0000020f0e193b70_0, v0000020f0e1e0b30_0, v0000020f0e1e1350_0, v0000020f0e1e1030_0, v0000020f0e1e0c70_0 {0 0 0};
+    %load/vec4 v0000020f0e10a420_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0000020f0e10a420_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+    .scope S_0000020f0e10e030;
+t_0 %join;
+    %vpi_call 2 17 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_peres_gate.v";
+    "peres_gate.v";
